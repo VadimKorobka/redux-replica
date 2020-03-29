@@ -26,8 +26,14 @@ Using redux with electron poses a couple of problems. Processes ([main](https://
 
 ## Install
 
+```sh
+$ npm install --save redux-replica
 ```
-npm install --save redux-replica
+
+or
+
+```sh
+$ yarn add redux-replica
 ```
 
 `redux-replica` comes as redux middleware that is really easy to apply:
