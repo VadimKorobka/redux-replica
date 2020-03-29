@@ -1,0 +1,15 @@
+{
+  "parser": "babel-eslint",
+  "extends": ["airbnb-base", "prettier"],
+  "env": {
+    "node": true,
+    "jest": true
+  },
+  "plugins": ["import", "prettier"],
+  "settings": {
+    "import/core-modules": ["electron"]
+  },
+  "rules": {
+    "prettier/prettier": "error"
+  }
+}

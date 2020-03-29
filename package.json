@@ -1,0 +1,49 @@
+{
+  "name": "redux-replica",
+  "version": "1.0.0-beta.1",
+  "main": "dist/index.js",
+  "description": "Using redux in electron and chrome extensions",
+  "repository": "https://github.com/VadimKorobka/redux-replica",
+  "author": "Vadim Korobka",
+  "keywords": [
+    "electron",
+    "chrome",
+    "extension",
+    "redux",
+    "react",
+    "desktop"
+  ],
+  "license": "MIT",
+  "files": [
+    "dist/**"
+  ],
+  "scripts": {
+    "lint": "eslint 'src/**/*'",
+    "build": "run-s clean build:latest build:es5",
+    "clean": "rimraf dist",
+    "build:latest": "copyfiles src dist",
+    "build:es5": "babel src --out-dir dist/commonjs"
+  },
+  "dependencies": {
+    "flux-standard-action": "^2.1.1",
+    "redux": "^4.0.5"
+  },
+  "devDependencies": {
+    "@babel/cli": "^7.8.4",
+    "@babel/core": "^7.8.4",
+    "@babel/plugin-proposal-object-rest-spread": "^7.8.4",
+    "@babel/preset-env": "^7.8.4",
+    "babel-core": "^7.0.0-0",
+    "babel-eslint": "^10.1.0",
+    "copyfiles": "^2.2.0",
+    "eslint": "^6.8.0",
+    "eslint-config-airbnb-base": "^14.1.0",
+    "eslint-config-prettier": "^6.10.1",
+    "eslint-plugin-import": "^2.20.2",
+    "eslint-plugin-prettier": "^3.1.2",
+    "husky": "^4.2.3",
+    "lint-staged": "^10.0.10",
+    "npm-run-all": "^4.1.5",
+    "rimraf": "^3.0.2"
+  }
+}
