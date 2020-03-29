@@ -1,6 +1,6 @@
 {
   "name": "redux-replica",
-  "version": "1.0.0-beta.1",
+  "version": "1.0.0",
   "main": "dist/index.js",
   "description": "Using redux in electron and chrome extensions",
   "repository": "https://github.com/VadimKorobka/redux-replica",
