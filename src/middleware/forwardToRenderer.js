@@ -14,7 +14,7 @@ const forwardToRenderer = () => next => action => {
     },
   }
 
-  sendActionToAllRenderer(rendererAction)
+  sendActionToAllRenderer('redux-action', rendererAction)
 
   return next(action)
 }

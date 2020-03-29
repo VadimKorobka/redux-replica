@@ -15,10 +15,12 @@ if (!isElectron && !isChrome) {
 export const getRendererSender = () => {
   if (isElectron) {
     const { ipcRenderer } = require('electron')
-    return ipcRenderer.send
+    return ipcRenderer
   } else if (isChrome) {
-    return (channel, ...args) => {
-      chrome.runtime.sendMessage({ channel, args })
+    return {
+      send: (channel, ...args) => {
+        chrome.runtime.sendMessage({ channel, args })
+      },
     }
   }
 }
@@ -26,14 +28,16 @@ export const getRendererSender = () => {
 export const getRendererListener = () => {
   if (isElectron) {
     const { ipcRenderer } = require('electron')
-    return ipcRenderer.on
+    return ipcRenderer
   } else if (isChrome) {
-    return (channel, callback) => {
-      chrome.runtime.onMessage.addListener(request => {
-        if (request && request.channel === channel) {
-          callback(undefined, ...request.args)
-        }
-      })
+    return {
+      on: (channel, callback) => {
+        chrome.runtime.onMessage.addListener(request => {
+          if (request && request.channel === channel) {
+            callback(undefined, ...request.args)
+          }
+        })
+      },
     }
   }
 }
@@ -41,7 +45,7 @@ export const getRendererListener = () => {
 export const getMainListener = () => {
   if (isElectron) {
     const { ipcMain } = require('electron')
-    return ipcMain.on
+    return ipcMain
   } else if (isChrome) {
     return getRendererListener()
   }
@@ -83,7 +87,7 @@ export const setGlobalInitialStateCreator = () => {
 
 export const getGlobalInitialState = () => {
   if (isElectron) {
-    const getReduxState = remote.getGlobal('getReduxState')
+    const getReduxState = require('electron').remote.getGlobal('getReduxState')
     if (!getReduxState) {
       throw new Error('Could not find reduxState global in main process, did you forget to call replayActionMain?')
     }
