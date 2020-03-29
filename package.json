@@ -21,8 +21,13 @@
     "lint": "eslint 'src/**/*'",
     "build": "run-s clean build:latest build:es5",
     "clean": "rimraf dist",
-    "build:latest": "copyfiles src dist",
-    "build:es5": "babel src --out-dir dist/commonjs"
+    "build:latest": "copyfiles -u 1 src/* src/**/* dist",
+    "build:es5": "babel src --out-dir dist/commonjs",
+    "version-patch": "npm version patch -m \"Bump version to %s\"",
+    "version-prepatch": "npm version patch -m \"Bump prepatch version to %s\"",
+    "version-minor": "npm version minor -m \"Bump minor version to %s\"",
+    "postversion": "run-s create-changelog publish",
+    "create-changelog": "auto-changelog -p && git add -A && git commit -am \"Update Changelog\" && git push && git push --tags"
   },
   "dependencies": {
     "flux-standard-action": "^2.1.1",
@@ -33,6 +38,7 @@
     "@babel/core": "^7.8.4",
     "@babel/plugin-proposal-object-rest-spread": "^7.8.4",
     "@babel/preset-env": "^7.8.4",
+    "auto-changelog": "^1.16.3",
     "babel-core": "^7.0.0-0",
     "babel-eslint": "^10.1.0",
     "copyfiles": "^2.2.0",
