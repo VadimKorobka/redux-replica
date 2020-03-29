@@ -26,8 +26,8 @@
     "version-patch": "npm version patch -m \"Bump version to %s\"",
     "version-prerelease": "npm version patch -m \"Bump prerelease version to %s\"",
     "version-minor": "npm version minor -m \"Bump minor version to %s\"",
-    "postversion": "run-s create-changelog publish",
-    "publish": "npm publish",
+    "postversion": "run-s create-changelog publish-package",
+    "publish-package": "npm publish",
     "create-changelog": "auto-changelog -p && git add -A && git commit -am \"Update Changelog\" && git push && git push --tags"
   },
   "dependencies": {
