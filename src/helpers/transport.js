@@ -64,24 +64,16 @@ export const sendActionToAllRenderer = (channel, action) => {
   }
 }
 
-export const setGlobalInitialStateCreator = () => {
-  let storeClosured = { getState: () => ({}) }
+export const setGlobalInitialState = store => {
   if (isElectron) {
-    global.getReduxState = () => JSON.stringify(storeClosured)
+    global.getReduxState = () => JSON.stringify(store.getState())
   } else if (isChrome) {
     chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
       if (request.channel == 'redux-get-initial-state') {
-        sendResponse(storeClosured.getState())
+        sendResponse(store.getState())
         return true
       }
     })
-  }
-  return newStore => {
-    if (isElectron) {
-      global.getReduxState = () => JSON.stringify(storeClosured.getState())
-    } else if (isChrome) {
-      storeClosured = newStore
-    }
   }
 }
 
@@ -103,10 +95,3 @@ export const getGlobalInitialState = () => {
     })
   }
 }
-
-// chrome.runtime.onMessage.addListener(
-//     (request, sender, sendResponse) => {
-//       console.log(request)
-//     }
-//   );
-//   chrome.runtime.sendMessage({ test: 1 })

@@ -1,6 +1,4 @@
-import { getMainListener, setGlobalInitialStateCreator } from './transport'
-
-const setGlobalInitialState = setGlobalInitialStateCreator()
+import { getMainListener, setGlobalInitialState } from './transport'
 
 export default function replayActionMain(store) {
   /**
