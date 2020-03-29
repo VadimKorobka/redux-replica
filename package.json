@@ -26,6 +26,7 @@
     "version-patch": "npm version patch -m \"Bump version to %s\"",
     "version-prerelease": "npm version prerelease -m \"Bump prerelease version to %s\"",
     "version-minor": "npm version minor -m \"Bump minor version to %s\"",
+    "preversion": "run-s build",
     "postversion": "run-s create-changelog publish-package",
     "publish-package": "npm publish",
     "create-changelog": "auto-changelog -p && git add -A && git commit -am \"Update Changelog\" && git push && git push --tags"
