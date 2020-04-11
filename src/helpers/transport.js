@@ -32,7 +32,7 @@ export const getRendererListener = () => {
   } else if (isChrome) {
     return {
       on: (channel, callback) => {
-        chrome.runtime.onMessage.addListener(request => {
+        chrome.runtime.onMessage.addListener((request) => {
           if (request && request.channel === channel) {
             callback(undefined, ...request.args)
           }
@@ -56,19 +56,22 @@ export const sendActionToAllRenderer = (channel, action) => {
     const { webContents } = require('electron')
     const allWebContents = webContents.getAllWebContents()
 
-    allWebContents.forEach(contents => {
+    allWebContents.forEach((contents) => {
       contents.send(channel, action)
     })
   } else if (isChrome) {
     chrome.runtime.sendMessage({ channel, args: [action] })
+    chrome.tabs.query({}, (tabs) => {
+      tabs.forEach(({ id }) => chrome.tabs.sendMessage(id, { channel, args: [action] }))
+    })
   }
 }
 
-export const setGlobalInitialState = store => {
+export const setGlobalInitialState = (store) => {
   if (isElectron) {
     global.getReduxState = () => JSON.stringify(store.getState())
   } else if (isChrome) {
-    chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
+    chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
       if (request.channel == 'redux-get-initial-state') {
         sendResponse(store.getState())
         return true
@@ -87,7 +90,7 @@ export const getGlobalInitialState = () => {
   } else if (isChrome) {
     return new Promise((resolve, reject) => {
       const timeout = setTimeout(() => reject('TIMEOUT'), 30000)
-      chrome.runtime.sendMessage({ channel: 'redux-get-initial-state' }, response => {
+      chrome.runtime.sendMessage({ channel: 'redux-get-initial-state' }, (response) => {
         console.log(response)
         resolve(response)
         clearTimeout(timeout)
