@@ -1,15 +1,33 @@
 # redux-replica
 
 - [redux-replica](#redux-replica)
+  - [Definitions](#definitions)
+    - [Electron](#electron)
+    - [Chrome](#chrome-extension)
   - [Motivation](#motivation)
     - [The solution](#the-solution)
   - [Install](#install)
+  - [Usage Example](#usage-example)
   - [Actions](#actions)
     - [Local actions (renderer process)](#local-actions-renderer-process)
     - [Aliased actions (main process)](#aliased-actions-main-process)
     - [Blacklisted actions](#blacklisted-actions)
   - [Contributions](#contributions)
   - [Contributors](#contributors)
+
+## Definitions
+
+#### Electron
+
+In Electron, the process that runs package.json's main script is called the **_main process_**. The script that runs in the main process can display a GUI by creating web pages. An Electron app always has one main process, but never more.
+
+Since Electron uses Chromium for displaying web pages, Chromium's multi-process architecture is also used. Each web page in Electron runs in its own process, which is called the **_renderer process_**. [Electron Docs](https://www.electronjs.org/docs/tutorial/application-architecture#main-and-renderer-processes).
+<br><img src="https://www.pngitem.com/pimgs/m/88-880375_electron-architecture-diagram-electron-node-js-architecture-hd.png" alt="Electron Architecture" width="400"/>
+
+#### Chrome Extension
+
+**_The background script_** is the extension's event handler; it contains listeners for browser events that are important to the extension. Extension UI pages, such as a **_popup_**, can contain ordinary HTML pages with JavaScript logic. Extensions that read or write to web pages utilize a **_content script_**. The content script contains JavaScript that executes in the contexts of a page that has been loaded into the browser. Content scripts read and modify the DOM of web pages the browser visits. [Developer Chrome](https://developer.chrome.com/extensions/overview#arch)
+<br><img src="https://developer.chrome.com/static/images/overview/contentscriptarc.png" alt="Chrome Extension Architecture" width="400"/>
 
 ## Motivation
 
@@ -20,9 +38,17 @@ Using redux with electron poses a couple of problems. Processes ([main](https://
 
 ### The solution
 
-`redux-replica` offers an easy to use solution. The redux store on the main process becomes the single source of truth, and stores in the renderer processes become mere proxies. See [under the hood](#under-the-hood).
+`redux-replica` offers an easy to use solution. The redux store on the master process becomes the single source of truth, and stores in the slave processes become mere proxies. You **MUST** use equal reducers for all processes.
 
-![redux-replica basic](https://cloud.githubusercontent.com/assets/307162/20675737/385ce59e-b585-11e6-947e-3867e77c783d.png)
+#### Electron:
+- Master: *Main Process*
+- Slave: Each *Renderer Process*
+
+#### Chrome Extension:
+- Master: *Background Script*
+- Slave: *Popup* and each *Content Script*
+
+<br><img src="https://svgshare.com/i/LZ2.svg" alt="Redux Replica Mechanism" width="400"/>
 
 ## Install
 
@@ -35,6 +61,8 @@ or
 ```sh
 $ yarn add redux-replica
 ```
+
+## Usage Example
 
 `redux-replica` comes as redux middleware that is really easy to apply:
 
