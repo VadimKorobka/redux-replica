@@ -41,12 +41,14 @@ Using redux with electron poses a couple of problems. Processes ([main](https://
 `redux-replica` offers an easy to use solution. The redux store on the master process becomes the single source of truth, and stores in the slave processes become mere proxies. You **MUST** use equal reducers for all processes.
 
 #### Electron:
-- Master: *Main Process*
-- Slave: Each *Renderer Process*
+
+- Master: _Main Process_
+- Slave: Each _Renderer Process_
 
 #### Chrome Extension:
-- Master: *Background Script*
-- Slave: *Popup* and each *Content Script*
+
+- Master: _Background Script_
+- Slave: _Popup_ and each _Content Script_
 
 <br><img src="https://svgshare.com/i/LZ2.svg" alt="Redux Replica Mechanism" width="400"/>
 
@@ -90,18 +92,19 @@ replayActionMain(store)
 import { forwardToMain, replayActionRenderer, getInitialStateRenderer } from 'redux-replica'
 
 const todoApp = combineReducers(reducers)
-const initialState = getInitialStateRenderer()
 
-const store = createStore(
-  todoApp,
-  initialState,
-  applyMiddleware(
-    forwardToMain, // IMPORTANT! This goes first
-    ...otherMiddleware,
-  ),
-)
+getInitialStateRenderer().then((initialState) => {
+  const store = createStore(
+    todoApp,
+    initialState,
+    applyMiddleware(
+      forwardToMain, // IMPORTANT! This goes first
+      ...otherMiddleware,
+    ),
+  )
 
-replayActionRenderer(store)
+  replayActionRenderer(store)
+})
 ```
 
 And that's it! You are now ready to fire actions without having to worry about synchronising your state between processes.

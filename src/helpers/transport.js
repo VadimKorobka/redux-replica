@@ -86,7 +86,7 @@ export const getGlobalInitialState = () => {
     if (!getReduxState) {
       throw new Error('Could not find reduxState global in main process, did you forget to call replayActionMain?')
     }
-    return JSON.parse(getReduxState())
+    return Promise.resolve(JSON.parse(getReduxState()))
   } else if (isChrome) {
     return new Promise((resolve, reject) => {
       const timeout = setTimeout(() => reject('TIMEOUT'), 30000)
