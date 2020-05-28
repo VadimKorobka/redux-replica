@@ -1,19 +1,21 @@
-/* eslint-disable @typescript-eslint/no-unsafe-call */
-/* eslint-disable @typescript-eslint/no-var-requires */
-const webpack = require('webpack')
+import webpack from 'webpack'
+import ForkTsCheckerWebpackPlugin from 'fork-ts-checker-webpack-plugin'
+import TsconfigPathsPlugin from 'tsconfig-paths-webpack-plugin'
+import LodashModuleReplacementPlugin from 'lodash-webpack-plugin'
+import TerserPlugin from 'terser-webpack-plugin'
+// import { BundleAnalyzerPlugin } from 'webpack-bundle-analyzer'
 
-const ForkTsCheckerWebpackPlugin = require('fork-ts-checker-webpack-plugin')
-const TsconfigPathsPlugin = require('tsconfig-paths-webpack-plugin')
-const LodashModuleReplacementPlugin = require('lodash-webpack-plugin')
-const TerserPlugin = require('terser-webpack-plugin')
-
-// const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin
+/**
+ * Failed to load tsconfig.json: Missing baseUrl in compilerOptions
+ * https://github.com/dividab/tsconfig-paths-webpack-plugin/issues/32
+ */
+delete process.env.TS_NODE_PROJECT
 
 const DEFAULT_STAGE = 'production'
 const stage = process.env.BUILD_STAGE || DEFAULT_STAGE
 console.log('stage', stage)
 
-const webpackConfig = {
+const webpackConfig: webpack.Configuration = {
   mode: 'development',
   target: 'electron-main',
   entry: {
