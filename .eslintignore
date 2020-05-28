@@ -1,4 +1,5 @@
 node_modules/
+examples/
 types/
 lib/
 lib-esm/

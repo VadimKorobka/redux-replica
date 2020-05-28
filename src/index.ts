@@ -6,7 +6,7 @@ import replayActionMain from '@helpers/replayActionMain'
 import replayActionRenderer from '@helpers/replayActionRenderer'
 import getInitialStateRenderer from '@helpers/getInitialStateRenderer'
 
-export {
+export default {
   forwardToMain,
   forwardToMainWithParams,
   forwardToRenderer,

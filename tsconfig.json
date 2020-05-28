@@ -2,6 +2,7 @@
   "compilerOptions": {
     "baseUrl": ".",
     "declaration": true,
+    "declarationDir": "./lib-esm",
     "module": "ES6",
     "moduleResolution": "Node",
     "noImplicitAny": false,
@@ -16,7 +17,11 @@
       "@middleware/*": ["./src/middleware/*"],
       "@registry/*": ["./src/registry/*"],
       "@types": ["./src/types.ts"]
-    }
+    },
+    "plugins": [
+      { "transform": "typescript-transform-paths" },
+      { "transform": "typescript-transform-paths", "afterDeclarations": true }
+    ]
   },
   "include": ["src", "./*", "./node_modules/@types/*"]
 }

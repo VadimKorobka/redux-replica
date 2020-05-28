@@ -2,7 +2,7 @@ import validateAction from '@helpers/validateAction'
 import { getRendererSender } from '@helpers/transport'
 import { Action } from '@types'
 
-interface Params {
+export interface Params {
   blacklist?: RegExp[]
 }
 

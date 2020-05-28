@@ -6,7 +6,6 @@ const ForkTsCheckerWebpackPlugin = require('fork-ts-checker-webpack-plugin')
 const TsconfigPathsPlugin = require('tsconfig-paths-webpack-plugin')
 const LodashModuleReplacementPlugin = require('lodash-webpack-plugin')
 const TerserPlugin = require('terser-webpack-plugin')
-const { CleanWebpackPlugin } = require('clean-webpack-plugin')
 
 // const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin
 
@@ -47,12 +46,11 @@ const webpackConfig = {
         test: /\.(t|j)s$/,
         exclude: /node_modules/,
         use: [
-          'cache-loader',
+          // 'cache-loader',
           {
-            loader: 'ts-loader',
+            loader: 'awesome-typescript-loader',
             options: {
-              transpileOnly: true,
-              configFile: 'tsconfig.json',
+              compiler: 'ttypescript',
             },
           },
         ],
@@ -72,7 +70,6 @@ const webpackConfig = {
       IS_EXT: process.env.TARGET_ENV === 'extension',
     }),
     new LodashModuleReplacementPlugin(),
-    new CleanWebpackPlugin(),
     // new BundleAnalyzerPlugin(),
   ],
   optimization: {
