@@ -1,12 +1,17 @@
-import validateAction from '../helpers/validateAction'
-import { getRendererSender } from '../helpers/transport'
+import validateAction from '@helpers/validateAction'
+import { getRendererSender } from '@helpers/transport'
+import { Action } from '@types'
 
-export const forwardToMainWithParams = (params = {}) => () => next => action => {
+interface Params {
+  blacklist?: RegExp[]
+}
+
+export const forwardToMainWithParams = (params: Params = {}) => () => (next: CallableFunction) => (action: Action) => {
   const { blacklist = [] } = params
   if (!validateAction(action)) return next(action)
   if (action.meta && action.meta.scope === 'local') return next(action)
 
-  if (blacklist.some(rule => rule.test(action.type))) {
+  if (blacklist.some((rule) => rule.test(action.type))) {
     return next(action)
   }
 

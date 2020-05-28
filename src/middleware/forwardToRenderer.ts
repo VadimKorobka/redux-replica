@@ -1,7 +1,8 @@
-import validateAction from '../helpers/validateAction'
-import { sendActionToAllRenderer } from '../helpers/transport'
+import validateAction from '@helpers/validateAction'
+import { sendActionToAllRenderer } from '@helpers/transport'
+import { Action } from '@types'
 
-const forwardToRenderer = () => next => action => {
+const forwardToRenderer = () => (next: CallableFunction) => (action: Action) => {
   if (!validateAction(action)) return next(action)
   if (action.meta && action.meta.scope === 'local') return next(action)
 

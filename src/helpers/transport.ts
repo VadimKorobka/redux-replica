@@ -1,4 +1,12 @@
-let isChrome = typeof chrome !== 'undefined'
+/* eslint-disable @typescript-eslint/no-unsafe-return */
+/* eslint-disable global-require */
+/* eslint-disable @typescript-eslint/no-var-requires */
+import { WebContents } from 'electron'
+import { Action, IPCListener, IPCSender } from '@types'
+// eslint-disable-next-line import/no-extraneous-dependencies
+import { Store } from 'redux'
+
+const isChrome = typeof chrome !== 'undefined'
 let isElectron = false
 
 try {
@@ -6,30 +14,35 @@ try {
   if (electron) {
     isElectron = true
   }
-} catch (e) {}
+} catch {
+  //
+}
 
 if (!isElectron && !isChrome) {
   throw new Error('Chrome or Electron is not detected')
 }
 
-export const getRendererSender = () => {
+export const getRendererSender = (): IPCSender => {
   if (isElectron) {
     const { ipcRenderer } = require('electron')
     return ipcRenderer
-  } else if (isChrome) {
+  }
+  if (isChrome) {
     return {
       send: (channel, ...args) => {
         chrome.runtime.sendMessage({ channel, args })
       },
     }
   }
+  throw new Error('Unknown platform')
 }
 
-export const getRendererListener = () => {
+export const getRendererListener = (): IPCListener => {
   if (isElectron) {
     const { ipcRenderer } = require('electron')
     return ipcRenderer
-  } else if (isChrome) {
+  }
+  if (isChrome) {
     return {
       on: (channel, callback) => {
         chrome.runtime.onMessage.addListener((request) => {
@@ -40,21 +53,25 @@ export const getRendererListener = () => {
       },
     }
   }
+  throw new Error('Unknown platform')
 }
 
 export const getMainListener = () => {
   if (isElectron) {
     const { ipcMain } = require('electron')
     return ipcMain
-  } else if (isChrome) {
+  }
+  if (isChrome) {
     return getRendererListener()
   }
+  throw new Error('Unknown platform')
 }
 
-export const sendActionToAllRenderer = (channel, action) => {
+export const sendActionToAllRenderer = (channel: string, action: Action) => {
   if (isElectron) {
     const { webContents } = require('electron')
-    const allWebContents = webContents.getAllWebContents()
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-call
+    const allWebContents: WebContents[] = webContents.getAllWebContents()
 
     allWebContents.forEach((contents) => {
       contents.send(channel, action)
@@ -67,29 +84,34 @@ export const sendActionToAllRenderer = (channel, action) => {
   }
 }
 
-export const setGlobalInitialState = (store) => {
+export const setGlobalInitialState = <T extends Store = Store>(store: T) => {
   if (isElectron) {
-    global.getReduxState = () => JSON.stringify(store.getState())
+    const globalClosured = global as any
+    globalClosured.getReduxState = () => JSON.stringify(store.getState())
   } else if (isChrome) {
-    chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
-      if (request.channel == 'redux-get-initial-state') {
+    chrome.runtime.onMessage.addListener((request, sender, sendResponse): boolean => {
+      if (request.channel === 'redux-get-initial-state') {
         sendResponse(store.getState())
         return true
       }
+
+      return false
     })
   }
 }
 
-export const getGlobalInitialState = () => {
+export const getGlobalInitialState = <T extends Store = Store>(): Promise<T> => {
   if (isElectron) {
-    const getReduxState = require('electron').remote.getGlobal('getReduxState')
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-call
+    const getReduxState: CallableFunction = require('electron').remote.getGlobal('getReduxState')
     if (!getReduxState) {
       throw new Error('Could not find reduxState global in main process, did you forget to call replayActionMain?')
     }
     return Promise.resolve(JSON.parse(getReduxState()))
-  } else if (isChrome) {
+  }
+  if (isChrome) {
     return new Promise((resolve, reject) => {
-      const timeout = setTimeout(() => reject('TIMEOUT'), 30000)
+      const timeout = setTimeout(() => reject(new Error('TIMEOUT')), 30000)
       chrome.runtime.sendMessage({ channel: 'redux-get-initial-state' }, (response) => {
         console.log(response)
         resolve(response)
@@ -97,4 +119,5 @@ export const getGlobalInitialState = () => {
       })
     })
   }
+  throw new Error('Unknown platform')
 }

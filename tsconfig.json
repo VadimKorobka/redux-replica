@@ -1,0 +1,22 @@
+{
+  "compilerOptions": {
+    "baseUrl": ".",
+    "declaration": true,
+    "module": "ES6",
+    "moduleResolution": "Node",
+    "noImplicitAny": false,
+    "skipLibCheck": true,
+    "sourceMap": true,
+    "target": "es2018",
+    "paths": {
+      "*": ["node_modules/*"],
+      "@actions/*": ["./src/actions/*"],
+      "@transport": ["./src/helpers/transport.ts"],
+      "@helpers/*": ["./src/helpers/*"],
+      "@middleware/*": ["./src/middleware/*"],
+      "@registry/*": ["./src/registry/*"],
+      "@types": ["./src/types.ts"]
+    }
+  },
+  "include": ["src", "./*", "./node_modules/@types/*"]
+}

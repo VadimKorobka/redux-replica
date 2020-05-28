@@ -1,4 +1,6 @@
 dist/
+lib/
+lib-esm/
 node_modules/
 coverage/
 *.log
