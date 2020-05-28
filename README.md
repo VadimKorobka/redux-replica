@@ -69,7 +69,7 @@ $ yarn add redux-replica
 `redux-replica` comes as redux middleware that is really easy to apply:
 
 ```javascript
-// in the main store
+// in the master store
 import { forwardToRenderer, triggerAlias, replayActionMain } from 'redux-replica'
 
 const todoApp = combineReducers(reducers)
@@ -88,7 +88,7 @@ replayActionMain(store)
 ```
 
 ```javascript
-// in the renderer store
+// in the slave store
 import { forwardToMain, replayActionRenderer, getInitialStateRenderer } from 'redux-replica'
 
 const todoApp = combineReducers(reducers)
