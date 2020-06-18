@@ -1,3 +1,5 @@
+[![Total alerts](https://img.shields.io/lgtm/alerts/g/VadimKorobka/redux-replica.svg?logo=lgtm&logoWidth=18)](https://lgtm.com/projects/g/VadimKorobka/redux-replica/alerts/)
+[![Language grade: JavaScript](https://img.shields.io/lgtm/grade/javascript/g/VadimKorobka/redux-replica.svg?logo=lgtm&logoWidth=18)](https://lgtm.com/projects/g/VadimKorobka/redux-replica/context:javascript)
 # redux-replica
 
 - [redux-replica](#redux-replica)
