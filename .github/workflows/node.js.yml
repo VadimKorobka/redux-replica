@@ -1,4 +1,4 @@
-name: Redux Replica CI
+name: Build and lint
 
 on:
   push:
