@@ -197,3 +197,5 @@ forwardToMainWithParams({
 Contributions via [issues](https://github.com/VadimKorobka/redux-replica/issues/new) or [pull requests](https://github.com/VadimKorobka/redux-replica/compare) are hugely welcome!
 
 Feel free to let me know whether you're successfully using `redux-replica` in your project and I'm happy to add them here as well!
+
+![](https://google-analytics.com/collect?v=1&t=pageview&tid=UA-170164044-1&cid=0&dp=https%3A%2F%2Fgithub.com%2FVadimKorobka%2Fredux-replica)
