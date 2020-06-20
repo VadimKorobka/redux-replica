@@ -13,11 +13,11 @@
     "paths": {
       "*": ["node_modules/*"],
       "@actions/*": ["./src/actions/*"],
-      "@transport": ["./src/helpers/transport.ts"],
+      "@transport": ["./src/helpers/transport"],
       "@helpers/*": ["./src/helpers/*"],
       "@middleware/*": ["./src/middleware/*"],
       "@registry/*": ["./src/registry/*"],
-      "@types": ["./src/types.ts"]
+      "@types": ["./src/types"]
     },
     "plugins": [
       { "transform": "typescript-transform-paths" },

@@ -16,3 +16,14 @@ export default {
   replayActionRenderer,
   getInitialStateRenderer,
 }
+
+export {
+  forwardToMain,
+  forwardToMainWithParams,
+  forwardToRenderer,
+  triggerAlias,
+  createAliasedAction,
+  replayActionMain,
+  replayActionRenderer,
+  getInitialStateRenderer,
+}

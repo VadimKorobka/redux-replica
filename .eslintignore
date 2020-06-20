@@ -3,3 +3,4 @@ examples/
 types/
 lib/
 lib-esm/
+webpack.config.ts
