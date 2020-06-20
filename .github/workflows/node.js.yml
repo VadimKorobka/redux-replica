@@ -7,7 +7,7 @@ on:
     branches: [master]
 
 jobs:
-  build:
+  test:
     runs-on: ubuntu-latest
 
     strategy:
@@ -33,5 +33,11 @@ jobs:
             ${{ runner.os }}-yarn-
 
       - run: yarn install --frozen-lockfile
-      - run: yarn run build
       - run: yarn run lint
+      - run: yarn run test
+      - run: yarn run build
+      - uses: paambaati/codeclimate-action@v2.5.7
+        env:
+          CC_TEST_REPORTER_ID: f51fc3f30718f3f5850d0d64ac0128dbfa139c8a7b081a08b405424e0efdfd8d
+        with:
+          coverageCommand: yarn coverage

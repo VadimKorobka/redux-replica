@@ -1,6 +1,10 @@
 [![Total alerts](https://img.shields.io/lgtm/alerts/g/VadimKorobka/redux-replica.svg?logo=lgtm&logoWidth=18)](https://lgtm.com/projects/g/VadimKorobka/redux-replica/alerts/)
 [![Language grade: JavaScript](https://img.shields.io/lgtm/grade/javascript/g/VadimKorobka/redux-replica.svg?logo=lgtm&logoWidth=18)](https://lgtm.com/projects/g/VadimKorobka/redux-replica/context:javascript)
 ![Status of build](https://github.com/VadimKorobka/redux-replica/workflows/Build%20and%20lint/badge.svg)
+![Known Vulnerabilities](https://snyk.io/test/github/VadimKorobka/redux-replica/badge.svg)
+[![Maintainability](https://api.codeclimate.com/v1/badges/537dce92ad0e90f5ee58/maintainability)](https://codeclimate.com/github/VadimKorobka/redux-replica/maintainability)
+[![Test Coverage](https://api.codeclimate.com/v1/badges/537dce92ad0e90f5ee58/test_coverage)](https://codeclimate.com/github/VadimKorobka/redux-replica/test_coverage)
+[![https://nodei.co/npm/redux-replica.png?downloads=true&downloadRank=true&stars=true](https://nodei.co/npm/redux-replica.png?downloads=true&downloadRank=true&stars=true)](https://www.npmjs.com/package/redux-replica)
 
 # redux-replica
 
