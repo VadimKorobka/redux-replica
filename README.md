@@ -5,6 +5,8 @@
 [![Maintainability](https://api.codeclimate.com/v1/badges/537dce92ad0e90f5ee58/maintainability)](https://codeclimate.com/github/VadimKorobka/redux-replica/maintainability)
 [![Test Coverage](https://api.codeclimate.com/v1/badges/537dce92ad0e90f5ee58/test_coverage)](https://codeclimate.com/github/VadimKorobka/redux-replica/test_coverage)
 ![npm bundle size](https://img.shields.io/bundlephobia/minzip/redux-replica?color=green&label=bundlephobia&style=flat-square)
+![GitHub](https://img.shields.io/github/license/VadimKorobka/redux-replica?style=flat-square)
+![David](https://img.shields.io/david/VadimKorobka/redux-replica?style=flat-square)
 [![https://nodei.co/npm/redux-replica.png?downloads=true&downloadRank=true&stars=true](https://nodei.co/npm/redux-replica.png?downloads=true&downloadRank=true&stars=true)](https://www.npmjs.com/package/redux-replica)
 
 # redux-replica
