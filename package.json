@@ -18,9 +18,7 @@
   ],
   "license": "MIT",
   "files": [
-    "lib/**/*",
-    "lib-esm/**/*",
-    "src/**/*"
+    "lib-esm/**/*"
   ],
   "scripts": {
     "lint": "eslint src/**/*.ts",
