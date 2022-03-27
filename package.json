@@ -40,7 +40,7 @@
     "create-changelog": "auto-changelog -p && git add -A && git commit -am \"Update Changelog\" && git push && git push --tags"
   },
   "dependencies": {
-    "lodash-es": "^4.17.15"
+    "lodash-es": "^4.17.21"
   },
   "devDependencies": {
     "@babel/cli": "^7.8.4",
